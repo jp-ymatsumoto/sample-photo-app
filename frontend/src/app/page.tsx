@@ -3,7 +3,7 @@ import UserListSection from "@/components/UserListSection";
 
 export default async function Home() {
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row grow">
       {/* 左カラム */}
       <div className="grow">
         <h2 className="text-lg font-bold">最新投稿</h2>

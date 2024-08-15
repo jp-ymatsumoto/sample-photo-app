@@ -3,6 +3,7 @@ import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Sidebar from "@/components/Sidebar";
 
 const font = Noto_Sans_JP({ subsets: ["latin"] });
 
@@ -22,7 +23,10 @@ export default function RootLayout({
       <body className={font.className}>
         <div className="flex flex-col">
           <Header />
-          {children}
+          <div className="flex flex-row min-h-screen">
+            <Sidebar />
+            <div className="grow">{children}</div>
+          </div>
           <Footer />
         </div>
       </body>
