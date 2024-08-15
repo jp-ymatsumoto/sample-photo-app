@@ -41,3 +41,22 @@ export async function getUsers(): Promise<User[] | null> {
     return null;
   }
 }
+
+export async function getUser(useranme: string): Promise<User | null> {
+  try {
+    const response = await strapi.find("users", {
+      filters: { username: useranme },
+    });
+    // console.log(response);
+    if (!Array.isArray(response)) {
+      return null;
+    }
+    if (response.length === 0) {
+      return null;
+    }
+    return response[0];
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
