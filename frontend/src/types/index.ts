@@ -22,3 +22,7 @@ export type Image = {
     url: string;
   };
 };
+
+export type User = {
+  username: string;
+};
