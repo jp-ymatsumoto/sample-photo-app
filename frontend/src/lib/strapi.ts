@@ -41,13 +41,27 @@ export async function getPhoto(id: number): Promise<PhotoResponse | null> {
   }
 }
 
-export async function getPhotosAll(): Promise<PhotoResponse | null> {
+export async function getPhotosAll(username?: string): Promise<PhotoResponse | null> {
   try {
+    if (username) {
+      const response: PhotoResponse = await strapi.find("photos", {
+        pagination: { page: 1, pageSize: 25 },
+        filters: { user: { username: username } },
+        fields: ["title"],
+        populate: {
+          image: {
+            fields: ["url"],
+          },
+        },
+      });
+      return response;
+    } else {
     const response: PhotoResponse = await strapi.find("photos", {
       pagination: { page: 1, pageSize: 25 },
       populate: "*",
     });
     return response;
+    }
   } catch (error) {
     console.error(error);
     return null;
