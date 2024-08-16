@@ -1,5 +1,5 @@
 import Strapi from "strapi-sdk-js";
-import { PhotoCategoryResponse, User } from "@/types";
+import { PhotoCategoryResponse, PhotoResponse, User } from "@/types";
 
 export const strapi = new Strapi({
   url: process.env.STRAPI_URL ?? "http://localhost:1337",
@@ -20,6 +20,19 @@ export async function getCategories(): Promise<PhotoCategoryResponse | null> {
           fields: ["url"],
         },
       },
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export async function getPhotosAll(): Promise<PhotoResponse | null> {
+  try {
+    const response: PhotoResponse = await strapi.find("photos", {
+      pagination: { page: 1, pageSize: 25 },
+      populate: "*",
     });
     return response;
   } catch (error) {
