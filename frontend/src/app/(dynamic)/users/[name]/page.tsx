@@ -1,4 +1,5 @@
-import { getUser } from "@/lib/strapi";
+import PhotoListSection from "@/components/PhotoListSection";
+import { getPhotosAll, getUser } from "@/lib/strapi";
 import { User } from "@/types";
 import { UserCircleIcon } from "lucide-react";
 import { FC } from "react";
@@ -21,7 +22,9 @@ const UserPhotosPage: FC<Props> = async ({ params }) => {
     );
   }
 
-  // TODO: ユーザの写真を取得する
+  // ユーザの写真を取得する
+  const userPhotos = await getPhotosAll(params.name);
+  console.log(userPhotos);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -38,11 +41,7 @@ const UserPhotosPage: FC<Props> = async ({ params }) => {
       {/* 写真投稿一覧 */}
       <div className="flex flex-col border-t-2 px-5 py-2">
         <h2 className="text-lg font-bold">投稿写真一覧</h2>
-        <div className="">
-          {/* TODO: 投稿写真がないことを表示する */}
-          <p>投稿写真がありません</p>
-          {/* TODO: 投稿写真の一覧を表示する */}
-        </div>
+        {userPhotos ? <PhotoListSection photos={userPhotos} /> : <p>投稿写真がありません</p>}
       </div>
     </div>
   );

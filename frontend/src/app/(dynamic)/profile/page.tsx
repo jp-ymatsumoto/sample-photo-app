@@ -1,14 +1,17 @@
 import { buttonVariants } from "@/components/ui/button";
-import { getProfile } from "@/lib/strapi";
+import { getPhotosAll, getProfile } from "@/lib/strapi";
 import { UserCircleIcon } from "lucide-react";
 import Link from "next/link";
 import { cookies } from "next/headers";
+import PhotoListSection from "@/components/PhotoListSection";
 
 const ProfilePage = async () => {
   const cookieStore = cookies();
   const jwt = cookieStore.has("jwt") ? cookieStore.get("jwt") : null;
 
   const user = await getProfile(jwt!.value);
+
+  const userPhotos = await getPhotosAll(user.username);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -29,11 +32,7 @@ const ProfilePage = async () => {
       {/* 写真投稿一覧 */}
       <div className="flex flex-col border-t-2 px-5 py-2">
         <h2 className="text-lg font-bold">投稿写真一覧</h2>
-        <div className="">
-          {/* TODO: 投稿写真がないことを表示する */}
-          <p>投稿写真がありません</p>
-          {/* TODO: 投稿写真の一覧を表示する */}
-        </div>
+        {userPhotos ? <PhotoListSection photos={userPhotos} /> : <p>投稿写真がありません</p>}
       </div>
     </div>
   );

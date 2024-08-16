@@ -1,5 +1,5 @@
 import Strapi from "strapi-sdk-js";
-import { PhotoCategoryResponse, User } from "@/types";
+import type { PhotoCategoryResponse, PhotoResponse, PhotosResponse, User } from "@/types";
 
 export const strapi = new Strapi({
   url: process.env.STRAPI_URL ?? "http://localhost:1337",
@@ -15,6 +15,65 @@ export async function getCategories(): Promise<PhotoCategoryResponse | null> {
     const response: PhotoCategoryResponse = await strapi.find("categories", {
       pagination: { page: 1, pageSize: 9 },
       fields: ["id", "name", "label"],
+      populate: {
+        image: {
+          fields: ["url"],
+        },
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export async function getPhoto(id: number): Promise<PhotoResponse | null> {
+  try {
+    const response: PhotoResponse = await strapi.findOne("photos", id, {
+      populate: "*",
+      fields: ["title", "description"],
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export async function getPhotosAll(username?: string): Promise<PhotosResponse | null> {
+  try {
+    if (username) {
+      const response: PhotosResponse = await strapi.find("photos", {
+        pagination: { page: 1, pageSize: 25 },
+        filters: { user: { username: username } },
+        fields: ["title"],
+        populate: {
+          image: {
+            fields: ["url"],
+          },
+        },
+      });
+      return response;
+    } else {
+      const response: PhotosResponse = await strapi.find("photos", {
+      pagination: { page: 1, pageSize: 25 },
+      populate: "*",
+    });
+    return response;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export async function getCategoryPhotosAll(categoryName: string): Promise<PhotosResponse | null> {
+  try {
+    const response: PhotosResponse = await strapi.find("photos", {
+      pagination: { page: 1, pageSize: 25 },
+      filters: { category: { name: categoryName } },
+      fields: ["title"],
       populate: {
         image: {
           fields: ["url"],

@@ -16,6 +16,37 @@ export type PhotoCategory = {
   };
 };
 
+export type PhotosResponse = {
+  data: Photo[];
+};
+export type PhotoResponse = {
+  data: Photo;
+};
+
+export type Photo = {
+  id: number;
+  attributes: {
+    title: string;
+    description?: string;
+    createdAt: string;
+    updatedAt: string;
+    image: {
+      data?: Image;
+    };
+    user: {
+      data?: {
+        id: number;
+        attributes: {
+          username: string;
+        };
+      };
+    };
+    category: {
+      data?: PhotoCategory;
+    };
+  };
+};
+
 export type Image = {
   id: number;
   attributes: {

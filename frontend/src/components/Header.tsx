@@ -1,6 +1,5 @@
 import Link from "next/link";
-import LoginButton from "./LoginButton";
-import { LogoutButton } from "./LogoutButton";
+import AuthButtons from "./AuthButtons";
 
 const Header = () => {
   return (
@@ -14,8 +13,7 @@ const Header = () => {
       <div className="justify-self-center">{/* TODO: ユーザのアイコンと名前 */}</div>
       <div className="justify-self-end pr-5 flex flex-row gap-x-2">
         {/* TODO: ログインやログアウト */}
-        <LoginButton />
-        <LogoutButton />
+        <AuthButtons />
       </div>
     </header>
   );
