@@ -16,8 +16,11 @@ export type PhotoCategory = {
   };
 };
 
-export type PhotoResponse = {
+export type PhotosResponse = {
   data: Photo[];
+};
+export type PhotoResponse = {
+  data: Photo;
 };
 
 export type Photo = {
@@ -31,7 +34,12 @@ export type Photo = {
       data?: Image;
     };
     user: {
-      data?: User;
+      data?: {
+        id: number;
+        attributes: {
+          username: string;
+        };
+      };
     };
     category: {
       data?: PhotoCategory;

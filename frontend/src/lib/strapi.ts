@@ -28,6 +28,19 @@ export async function getCategories(): Promise<PhotoCategoryResponse | null> {
   }
 }
 
+export async function getPhoto(id: number): Promise<PhotoResponse | null> {
+  try {
+    const response: PhotoResponse = await strapi.findOne("photos", id, {
+      populate: "*",
+      fields: ["title", "description"],
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 export async function getPhotosAll(): Promise<PhotoResponse | null> {
   try {
     const response: PhotoResponse = await strapi.find("photos", {
