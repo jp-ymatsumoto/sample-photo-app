@@ -68,6 +68,25 @@ export async function getPhotosAll(username?: string): Promise<PhotoResponse | n
   }
 }
 
+export async function getCategoryPhotosAll(categoryName: string): Promise<PhotoResponse | null> {
+  try {
+    const response: PhotoResponse = await strapi.find("photos", {
+      pagination: { page: 1, pageSize: 25 },
+      filters: { category: { name: categoryName } },
+      fields: ["title"],
+      populate: {
+        image: {
+          fields: ["url"],
+        },
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 export async function getUsers(): Promise<User[] | null> {
   try {
     const response = await strapi.find("users", {
