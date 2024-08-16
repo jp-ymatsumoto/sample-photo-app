@@ -1,23 +1,18 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+"use client";
 
-const config = {
-  maxAge: 60 * 60 * 24 * 7, // 1 week
-  path: "/",
-  domain: process.env.HOST ?? "localhost",
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-};
-
-async function logoutAction() {
-  "use server";
-  cookies().set("jwt", "", { ...config, maxAge: 0 });
-  redirect("/");
-}
+import { logoutAction } from "@/actions";
+import { StrapiAuthContext } from "@/provider/StrapiAuth";
+import { useContext } from "react";
 
 export function LogoutButton() {
+  const { logout } = useContext(StrapiAuthContext);
   return (
-    <form action={logoutAction}>
+    <form
+      action={() => {
+        logout();
+        logoutAction();
+      }}
+    >
       <button
         type="submit"
         className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"

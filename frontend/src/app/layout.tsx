@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
+import StrapiAuthProvider from "@/provider/StrapiAuth";
 
 const font = Noto_Sans_JP({ subsets: ["latin"] });
 
@@ -21,14 +22,16 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={font.className}>
-        <div className="flex flex-col">
-          <Header />
-          <div className="flex flex-row min-h-screen">
-            <Sidebar />
-            <div className="grow">{children}</div>
+        <StrapiAuthProvider>
+          <div className="flex flex-col">
+            <Header />
+            <div className="flex flex-row min-h-screen">
+              <Sidebar />
+              <div className="grow">{children}</div>
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
+        </StrapiAuthProvider>
       </body>
     </html>
   );
