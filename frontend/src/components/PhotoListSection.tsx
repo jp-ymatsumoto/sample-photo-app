@@ -1,11 +1,13 @@
-import { getPhotosAll } from "@/lib/strapi";
+import type { PhotosResponse } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { FC } from "react";
 
-const PhotoListSection = async () => {
-  const photos = await getPhotosAll();
-  // console.log(photos);
+type Props = {
+  photos: PhotosResponse;
+};
 
+const PhotoListSection: FC<Props> = async ({ photos }) => {
   return (
     <div className="grid grid-cols-2 gap-2">
       {photos &&

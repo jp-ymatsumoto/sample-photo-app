@@ -1,8 +1,7 @@
+import PhotoListSection from "@/components/PhotoListSection";
 import { getPhotosAll, getUser } from "@/lib/strapi";
 import { User } from "@/types";
 import { UserCircleIcon } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import { FC } from "react";
 
 type Props = {
@@ -42,28 +41,7 @@ const UserPhotosPage: FC<Props> = async ({ params }) => {
       {/* 写真投稿一覧 */}
       <div className="flex flex-col border-t-2 px-5 py-2">
         <h2 className="text-lg font-bold">投稿写真一覧</h2>
-        <div className="grid grid-cols-3 gap-2">
-          {userPhotos ? (
-            userPhotos.data.map((photo) => (
-              <div key={photo.id} className="aspect-square">
-                <Link href={`/photos/${photo.id}`} className="w-full h-full">
-                  {photo.attributes.image.data && (
-                    <Image
-                      src={`http://localhost:1337${photo.attributes.image.data.attributes.url}`}
-                      alt={"投稿写真"}
-                      width={512}
-                      height={512}
-                      quality={50}
-                      className="w-full h-full object-cover rounded-xl"
-                    />
-                  )}
-                </Link>
-              </div>
-            ))
-          ) : (
-            <p>投稿写真がありません</p>
-          )}
-        </div>
+        {userPhotos ? <PhotoListSection photos={userPhotos} /> : <p>投稿写真がありません</p>}
       </div>
     </div>
   );

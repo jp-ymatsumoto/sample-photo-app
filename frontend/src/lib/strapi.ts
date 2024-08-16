@@ -1,5 +1,5 @@
 import Strapi from "strapi-sdk-js";
-import { PhotoCategoryResponse, PhotoResponse, User } from "@/types";
+import type { PhotoCategoryResponse, PhotoResponse, PhotosResponse, User } from "@/types";
 
 export const strapi = new Strapi({
   url: process.env.STRAPI_URL ?? "http://localhost:1337",
@@ -41,10 +41,10 @@ export async function getPhoto(id: number): Promise<PhotoResponse | null> {
   }
 }
 
-export async function getPhotosAll(username?: string): Promise<PhotoResponse | null> {
+export async function getPhotosAll(username?: string): Promise<PhotosResponse | null> {
   try {
     if (username) {
-      const response: PhotoResponse = await strapi.find("photos", {
+      const response: PhotosResponse = await strapi.find("photos", {
         pagination: { page: 1, pageSize: 25 },
         filters: { user: { username: username } },
         fields: ["title"],
@@ -56,7 +56,7 @@ export async function getPhotosAll(username?: string): Promise<PhotoResponse | n
       });
       return response;
     } else {
-    const response: PhotoResponse = await strapi.find("photos", {
+      const response: PhotosResponse = await strapi.find("photos", {
       pagination: { page: 1, pageSize: 25 },
       populate: "*",
     });
@@ -68,9 +68,9 @@ export async function getPhotosAll(username?: string): Promise<PhotoResponse | n
   }
 }
 
-export async function getCategoryPhotosAll(categoryName: string): Promise<PhotoResponse | null> {
+export async function getCategoryPhotosAll(categoryName: string): Promise<PhotosResponse | null> {
   try {
-    const response: PhotoResponse = await strapi.find("photos", {
+    const response: PhotosResponse = await strapi.find("photos", {
       pagination: { page: 1, pageSize: 25 },
       filters: { category: { name: categoryName } },
       fields: ["title"],
