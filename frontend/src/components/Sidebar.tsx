@@ -1,11 +1,13 @@
 "use client";
 import Link from "next/link";
 import { HouseIcon, ImageIcon, SquareUserIcon } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CreatePhotoDialog from "./dialog/CreatePhotoDialog";
+import { StrapiAuthContext } from "@/provider/StrapiAuth";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
+  const { user } = useContext(StrapiAuthContext);
 
   return (
     <>
@@ -34,15 +36,19 @@ const Sidebar = () => {
             </div>
           </Link>
         </div>
-        <div className="flex justify-center items-center p-1">
-          <div className="flex flex-col justify-center items-center" onClick={() => setOpen(true)}>
-            <ImageIcon size={32} />
-            <div className="text-xs">open</div>
+        {user && (
+          <div className="flex justify-center items-center p-1">
+            <div
+              className="flex flex-col justify-center items-center"
+              onClick={() => setOpen(true)}
+            >
+              <ImageIcon size={32} />
+              <div className="text-xs">投稿</div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
-
-      <CreatePhotoDialog open={open} close={() => setOpen(false)} />
+      {user && <CreatePhotoDialog open={open} close={() => setOpen(false)} />}
     </>
   );
 };
