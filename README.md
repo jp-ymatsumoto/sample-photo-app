@@ -1,5 +1,15 @@
 # sample-photo-app
 
+## 技術スタック
+
+### フロントエンド
+
+- Next.js 14 App Router
+
+### バックエンド
+
+- Strapi 4
+
 ## ER 図
 
 ```mermaid
