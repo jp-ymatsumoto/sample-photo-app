@@ -1,5 +1,6 @@
+import CommentSection from "@/components/CommentSection";
 import LikeButton from "@/components/LikeButton";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { getPhoto } from "@/lib/strapi";
 import { UserCircleIcon } from "lucide-react";
 import Image from "next/image";
@@ -64,10 +65,8 @@ const PhotoPage: FC<Props> = async ({ params }) => {
           </div>
         </div>
 
-        {/* TODO: コメント一覧を実装する */}
         <div className="grow flex flex-col">
-          <h3 className="text-lg font-bold">コメント一覧</h3>
-          <div>コメントはありません</div>
+          <CommentSection photoId={Number(photoId)} />
         </div>
       </div>
     </div>
