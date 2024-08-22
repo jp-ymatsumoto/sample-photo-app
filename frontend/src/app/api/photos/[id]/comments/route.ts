@@ -57,5 +57,5 @@ export async function POST(request: Request, params: { params: { id: string } })
   });
   const { data } = await response.json();
 
-  return NextResponse.json({ data: { id: data.id } }, { status: response.status });
+  return NextResponse.json({ data: data }, { status: response.status });
 }
