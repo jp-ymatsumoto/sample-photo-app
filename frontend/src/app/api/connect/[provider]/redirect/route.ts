@@ -32,6 +32,7 @@ export async function GET(request: Request, params: { params: { provider: string
   const data = await res.json();
 
   cookies().set("jwt", data.jwt, config);
+  cookies().set("user", data.user.id, config);
 
   return NextResponse.redirect(new URL("/profile", request.url));
 }
