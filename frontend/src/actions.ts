@@ -12,5 +12,6 @@ export async function logoutAction() {
     secure: process.env.NODE_ENV === "production",
   };
   cookies().set("jwt", "", { ...config, maxAge: 0 });
+  cookies().set("user", "", { ...config, maxAge: 0 });
   redirect("/");
 }

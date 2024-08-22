@@ -1,3 +1,4 @@
+import LikeButton from "@/components/LikeButton";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { getPhoto } from "@/lib/strapi";
 import { UserCircleIcon } from "lucide-react";
@@ -20,7 +21,10 @@ const PhotoPage: FC<Props> = async ({ params }) => {
 
   return (
     <div className="flex flex-col px-2 py-2">
-      <h2 className="text-lg font-bold">{photo?.data.attributes.title}</h2>
+      <div className="flex flex-row justify-between items-center h-10">
+        <h2 className="text-lg font-bold">{photo?.data.attributes.title}</h2>
+        <LikeButton photoId={Number(photo?.data.id)} />
+      </div>
       {photo?.data.attributes.image.data && (
         <Image
           src={`http://localhost:1337${photo?.data.attributes.image.data?.attributes.url}`}
