@@ -44,6 +44,12 @@
       "relation": "oneToMany",
       "target": "api::like.like",
       "mappedBy": "photo"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "photo"
     }
   }
 }
