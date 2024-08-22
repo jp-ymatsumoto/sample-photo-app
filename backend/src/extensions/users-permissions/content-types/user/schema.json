@@ -71,6 +71,12 @@
       "relation": "oneToMany",
       "target": "api::photo.photo",
       "mappedBy": "user"
+    },
+    "likes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::like.like",
+      "mappedBy": "user"
     }
   }
 }

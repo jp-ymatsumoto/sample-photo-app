@@ -38,6 +38,12 @@
       "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "photos"
+    },
+    "likes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::like.like",
+      "mappedBy": "photo"
     }
   }
 }

@@ -399,6 +399,36 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
 }
 
+export interface ApiLikeLike extends Schema.CollectionType {
+  collectionName: 'likes';
+  info: {
+    singularName: 'like';
+    pluralName: 'likes';
+    displayName: 'like';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    photo: Attribute.Relation<
+      'api::like.like',
+      'manyToOne',
+      'api::photo.photo'
+    >;
+    user: Attribute.Relation<
+      'api::like.like',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::like.like', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::like.like', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPhotoPhoto extends Schema.CollectionType {
   collectionName: 'photos';
   info: {
@@ -422,6 +452,11 @@ export interface ApiPhotoPhoto extends Schema.CollectionType {
       'api::photo.photo',
       'manyToOne',
       'api::category.category'
+    >;
+    likes: Attribute.Relation<
+      'api::photo.photo',
+      'oneToMany',
+      'api::like.like'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -807,6 +842,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::photo.photo'
     >;
+    likes: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::like.like'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -882,6 +922,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::category.category': ApiCategoryCategory;
+      'api::like.like': ApiLikeLike;
       'api::photo.photo': ApiPhotoPhoto;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
