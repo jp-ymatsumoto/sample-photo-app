@@ -1,5 +1,58 @@
 # sample-photo-app
 
+## 初期設定
+
+### バックエンド
+
+1. .env ファイルを作成する
+
+以下の内容は生成時のものです。デプロイ時には修正してください。
+
+```.env
+HOST=0.0.0.0
+PORT=1337
+APP_KEYS=VKklOzeJz6Hqh5QH6xCHxg==,DIeBbPOZ2jvkb8A5wygaHQ==,8QHIpgBtwnsepL1Rxuvs0A==,rIdtvgbKnAlcK7D0HyTBiw==
+API_TOKEN_SALT=JVg6CqCPM5SPh4DVa5ceSQ==
+ADMIN_JWT_SECRET=d4dANvv0H8bpO0J/iC2u8Q==
+TRANSFER_TOKEN_SALT=tG0kDhzTn1TwrDozNu1cVw==
+# Database
+DATABASE_CLIENT=sqlite
+DATABASE_FILENAME=.tmp/data.db
+JWT_SECRET=g1vMsKV4pB28HuCaQ0SjNQ==
+```
+
+2. パッケージをインストールする
+
+```bash
+yarn install
+```
+
+3. 管理サイトを開く
+
+```bash
+yarn develop
+```
+
+```
+http://localhost:1337
+```
+
+4. Settings の Providers からに GitHub の設定を行う
+
+### フロントエンド
+
+1. パッケージをインストールする
+
+```bash
+npm i
+```
+
+2. 開発用サーバを起動する
+
+```bash
+npm run dev
+```
+
 ## 技術スタック
 
 ### フロントエンド
