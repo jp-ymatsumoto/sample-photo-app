@@ -10,10 +10,10 @@ export const strapi = new Strapi({
   },
 });
 
-export async function getCategories(): Promise<PhotoCategoryResponse | null> {
+export async function getCategories(page = 1): Promise<PhotoCategoryResponse | null> {
   try {
     const response: PhotoCategoryResponse = await strapi.find("categories", {
-      pagination: { page: 1, pageSize: 9 },
+      pagination: { page: page, pageSize: 1 },
       fields: ["id", "name", "label"],
       populate: {
         image: {

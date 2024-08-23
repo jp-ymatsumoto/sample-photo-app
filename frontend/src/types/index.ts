@@ -1,6 +1,6 @@
 export type PhotoCategoryResponse = {
   data: PhotoCategory[];
-};
+} & Meta;
 
 export type PhotoCategory = {
   id: number;
