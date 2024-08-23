@@ -48,7 +48,7 @@ export async function getPhotosAll(
   try {
     if (username) {
       const response: PhotosResponse = await strapi.find("photos", {
-        pagination: { page: 1, pageSize: 2 },
+        pagination: { page: page, pageSize: 2 },
         filters: { user: { username: username } },
         fields: ["title"],
         populate: {
