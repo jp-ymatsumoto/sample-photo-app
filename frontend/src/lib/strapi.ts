@@ -41,9 +41,14 @@ export async function getPhoto(id: number): Promise<PhotoResponse | null> {
   }
 }
 
-export async function getPhotosAll(username?: string): Promise<PhotosResponse | null> {
+export async function getPhotosAll(
+  username?: string,
+  page: number = 1
+): Promise<PhotosResponse | null> {
   try {
     if (username) {
+      console.log("user photo fetch");
+
       const response: PhotosResponse = await strapi.find("photos", {
         pagination: { page: 1, pageSize: 25 },
         filters: { user: { username: username } },
@@ -56,11 +61,12 @@ export async function getPhotosAll(username?: string): Promise<PhotosResponse | 
       });
       return response;
     } else {
+      console.log("all photo fetch");
       const response: PhotosResponse = await strapi.find("photos", {
-      pagination: { page: 1, pageSize: 25 },
-      populate: "*",
-    });
-    return response;
+        pagination: { page: page, pageSize: 2 },
+        populate: "*",
+      });
+      return response;
     }
   } catch (error) {
     console.error(error);

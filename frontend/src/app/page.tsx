@@ -1,10 +1,15 @@
 import CategoryListSection from "@/components/CategoryListSection";
 import PhotoListSection from "@/components/PhotoListSection";
+import PhotoPagination from "@/components/PhotoPagination";
 import UserListSection from "@/components/UserListSection";
 import { getPhotosAll } from "@/lib/strapi";
-
-export default async function Home() {
-  const photos = await getPhotosAll();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const { page } = searchParams;
+  const photos = await getPhotosAll(undefined, page ? parseInt(page.toString()) : 1);
 
   return (
     <div className="flex flex-row grow">
@@ -13,7 +18,8 @@ export default async function Home() {
         <h2 className="text-lg font-bold">最新投稿</h2>
         {/* 最新の写真を10件表示する */}
         {photos && <PhotoListSection photos={photos} />}
-        {/* TODO: ページネーションを実装する */}
+        {/* ページネーションを表示する */}
+        {photos && <PhotoPagination meta={photos.meta} />}
       </div>
 
       {/* 右カラム */}
