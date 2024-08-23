@@ -68,7 +68,7 @@ const CreatePhotoDialog: FC<Props> = ({ open, close }) => {
     );
 
     try {
-      const response = await fetch("http://localhost:3000/api/create/photo", {
+      const response = await fetch("http://localhost:3000/api/photos", {
         method: "POST",
         body: formData,
       });
