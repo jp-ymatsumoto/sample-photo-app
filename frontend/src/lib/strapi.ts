@@ -10,10 +10,10 @@ export const strapi = new Strapi({
   },
 });
 
-export async function getCategories(): Promise<PhotoCategoryResponse | null> {
+export async function getCategories(page = 1): Promise<PhotoCategoryResponse | null> {
   try {
     const response: PhotoCategoryResponse = await strapi.find("categories", {
-      pagination: { page: 1, pageSize: 9 },
+      pagination: { page: page, pageSize: 1 },
       fields: ["id", "name", "label"],
       populate: {
         image: {
@@ -41,11 +41,14 @@ export async function getPhoto(id: number): Promise<PhotoResponse | null> {
   }
 }
 
-export async function getPhotosAll(username?: string): Promise<PhotosResponse | null> {
+export async function getPhotosAll(
+  username?: string,
+  page: number = 1
+): Promise<PhotosResponse | null> {
   try {
     if (username) {
       const response: PhotosResponse = await strapi.find("photos", {
-        pagination: { page: 1, pageSize: 25 },
+        pagination: { page: page, pageSize: 2 },
         filters: { user: { username: username } },
         fields: ["title"],
         populate: {
@@ -57,10 +60,10 @@ export async function getPhotosAll(username?: string): Promise<PhotosResponse | 
       return response;
     } else {
       const response: PhotosResponse = await strapi.find("photos", {
-      pagination: { page: 1, pageSize: 25 },
-      populate: "*",
-    });
-    return response;
+        pagination: { page: page, pageSize: 2 },
+        populate: "*",
+      });
+      return response;
     }
   } catch (error) {
     console.error(error);
@@ -68,10 +71,13 @@ export async function getPhotosAll(username?: string): Promise<PhotosResponse | 
   }
 }
 
-export async function getCategoryPhotosAll(categoryName: string): Promise<PhotosResponse | null> {
+export async function getCategoryPhotosAll(
+  categoryName: string,
+  page = 1
+): Promise<PhotosResponse | null> {
   try {
     const response: PhotosResponse = await strapi.find("photos", {
-      pagination: { page: 1, pageSize: 25 },
+      pagination: { page: page, pageSize: 3 },
       filters: { category: { name: categoryName } },
       fields: ["title"],
       populate: {

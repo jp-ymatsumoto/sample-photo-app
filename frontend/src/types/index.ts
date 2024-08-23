@@ -1,6 +1,6 @@
 export type PhotoCategoryResponse = {
   data: PhotoCategory[];
-};
+} & Meta;
 
 export type PhotoCategory = {
   id: number;
@@ -18,7 +18,7 @@ export type PhotoCategory = {
 
 export type PhotosResponse = {
   data: Photo[];
-};
+} & Meta;
 export type PhotoResponse = {
   data: Photo;
 };
@@ -56,4 +56,15 @@ export type Image = {
 
 export type User = {
   username: string;
+};
+
+export type Meta = {
+  meta: {
+    pagination: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
 };

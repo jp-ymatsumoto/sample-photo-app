@@ -1,9 +1,17 @@
+import PhotoPagination from "@/components/PhotoPagination";
 import { getCategories } from "@/lib/strapi";
 import Image from "next/image";
 import Link from "next/link";
+import { FC } from "react";
 
-const CategoriesPage = async () => {
-  const categories = await getCategories();
+type Props = {
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+const CategoriesPage: FC<Props> = async ({ searchParams }) => {
+  const { page } = searchParams;
+
+  const categories = await getCategories(page ? parseInt(page.toString()) : 1);
   // console.log(categories);
 
   return (
@@ -26,6 +34,7 @@ const CategoriesPage = async () => {
             </div>
           ))}
       </div>
+      {categories ? <PhotoPagination meta={categories.meta} pathname={`/categories`} /> : null}
     </div>
   );
 };
