@@ -19,7 +19,7 @@ export default async function Home({
         {/* 最新の写真を10件表示する */}
         {photos && <PhotoListSection photos={photos} />}
         {/* ページネーションを表示する */}
-        {photos && <PhotoPagination meta={photos.meta} />}
+        {photos && <PhotoPagination meta={photos.meta} pathname="/" />}
       </div>
 
       {/* 右カラム */}

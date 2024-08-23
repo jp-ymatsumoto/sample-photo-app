@@ -74,10 +74,13 @@ export async function getPhotosAll(
   }
 }
 
-export async function getCategoryPhotosAll(categoryName: string): Promise<PhotosResponse | null> {
+export async function getCategoryPhotosAll(
+  categoryName: string,
+  page = 1
+): Promise<PhotosResponse | null> {
   try {
     const response: PhotosResponse = await strapi.find("photos", {
-      pagination: { page: 1, pageSize: 25 },
+      pagination: { page: page, pageSize: 3 },
       filters: { category: { name: categoryName } },
       fields: ["title"],
       populate: {
